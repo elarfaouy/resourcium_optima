@@ -1,4 +1,4 @@
-package com.optima.resourcium_optima.dao;
+package com.optima.resourcium_optima.repositories;
 
 import com.optima.resourcium_optima.entities.User;
 import jakarta.persistence.*;

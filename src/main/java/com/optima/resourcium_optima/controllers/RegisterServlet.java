@@ -1,6 +1,6 @@
 package com.optima.resourcium_optima.controllers;
 
-import com.optima.resourcium_optima.dao.UserDao;
+import com.optima.resourcium_optima.repositories.UserDao;
 import com.optima.resourcium_optima.entities.User;
 import com.optima.resourcium_optima.util.AuthenticationUtil;
 import jakarta.servlet.ServletException;
