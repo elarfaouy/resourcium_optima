@@ -1,4 +1,4 @@
-package com.optima.resourcium_optima.entities;
+package com.optima.resourcium_optima.domain.entities;
 
 import jakarta.persistence.*;
 

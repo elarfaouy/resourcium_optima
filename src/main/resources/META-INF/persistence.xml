@@ -6,7 +6,7 @@
     <persistence-unit name="optima">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <jar-file>com/optima/resourcium_optima/entities</jar-file>
+        <jar-file>com/optima/resourcium_optima/domain/entities</jar-file>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

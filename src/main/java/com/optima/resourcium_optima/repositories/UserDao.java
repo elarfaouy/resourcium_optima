@@ -1,6 +1,6 @@
 package com.optima.resourcium_optima.repositories;
 
-import com.optima.resourcium_optima.entities.User;
+import com.optima.resourcium_optima.domain.entities.User;
 import jakarta.persistence.*;
 
 import java.util.List;
