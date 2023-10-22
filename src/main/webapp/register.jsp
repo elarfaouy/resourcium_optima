@@ -11,37 +11,32 @@
         <h2 class="text-2xl text-center font-semibold mb-6">Register</h2>
         <form action="register" method="post">
             <div class="mb-4">
-                <label for="username" class="block text-gray-600 text-sm font-medium">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required
+                <input type="text" id="username" name="username" placeholder="username" required
                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
-                <label for="name" class="block text-gray-600 text-sm font-medium">Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required
+                <input type="text" id="name" name="name" placeholder="name" required
                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
-                <label for="surname" class="block text-gray-600 text-sm font-medium">Surname</label>
-                <input type="text" id="surname" name="surname" placeholder="Enter your surname" required
+                <input type="text" id="surname" name="surname" placeholder="surname" required
                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
-                <label for="email" class="block text-gray-600 text-sm font-medium">Email</label>
-                <input type="text" id="email" name="email" placeholder="Enter your email" required
+                <input type="text" id="email" name="email" placeholder="email" required
                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
-                <label for="password" class="block text-gray-600 text-sm font-medium">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required
+                <input type="password" id="password" name="password" placeholder="password" required
                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
             </div>
             <div class="mb-4">
-                <label for="role" class="block text-gray-600 text-sm font-medium">Role</label>
-                <input type="text" id="role" name="role" placeholder="Enter your role" required
+                <input type="text" id="role" name="role" placeholder="role" required
                        class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
             </div>
             <button type="submit"
-                    class="w-full py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none">Register</button>
+                    class="inline-block w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white">Register</button>
+            <p class="mt-4 mb-0 leading-normal text-sm">Already have an account? <a href="login" class="font-bold text-slate-700">Login</a></p>
         </form>
     </div>
 </div>
