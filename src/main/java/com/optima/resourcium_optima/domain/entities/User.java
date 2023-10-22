@@ -13,26 +13,32 @@ public class User {
     private String surname;
     private String email;
     private String password;
-    private String role;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 
     public User() {
     }
 
-    public User(String username, String name, String surname, String email, String password, String role) {
+    public User(String username, String name, String surname, String email, String password, Role role, Department department) {
         this.username = username;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.role = role;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.department = department;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -75,11 +81,19 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }
