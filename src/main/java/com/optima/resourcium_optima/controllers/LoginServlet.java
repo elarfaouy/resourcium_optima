@@ -34,10 +34,10 @@ public class LoginServlet extends HttpServlet {
 
         if (user != null && AuthenticationUtil.verifyPassword(password, user.getPassword())) {
             req.getSession().setAttribute("user", user);
-            resp.sendRedirect(req.getContextPath() + "/dashboard.jsp");
+            resp.sendRedirect(req.getContextPath() + "/equipments");
         } else {
             // todo : send error message
-            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+            resp.sendRedirect(req.getContextPath() + "/login");
         }
     }
 }
