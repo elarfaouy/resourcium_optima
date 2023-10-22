@@ -12,6 +12,6 @@ import java.io.IOException;
 public class EquipmentTableServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("equips-table.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/jsp/equips-table.jsp").forward(req, resp);
     }
 }
