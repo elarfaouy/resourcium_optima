@@ -46,14 +46,14 @@ Import the project into your chosen IDE (Eclipse or IntelliJ IDEA) as a Maven pr
 
 3. **Configure the Database:**
 
-Update the project's database configuration. You'll find this in a configuration file (e.g., application.properties or persistence.xml).
+Update the project's database configuration. You'll find this in a configuration file (persistence.xml).
 
 4. **Build the Project:**
 
 Use Maven to build the project and resolve its dependencies.
 ```bash
 mvn clean install
-
+```
 5. **Run the Project:**
 
 Deploy the project on your web server (e.g., Apache Tomcat) to run and test it locally.
