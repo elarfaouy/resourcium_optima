@@ -21,6 +21,7 @@
                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Status</th>
                         <th class="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">Department</th>
                         <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
+                        <th class="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -46,7 +47,12 @@
                                 <span class="text-xs font-semibold leading-tight text-slate-400"><c:out value="${equipment.department.name}"/></span>
                             </td>
                             <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <a href="javascript:;" class="text-xs font-semibold leading-tight text-slate-400"> Edit </a>
+                                <a href="update-equipment?id=${equipment.id}" class="text-xs font-semibold leading-tight text-slate-400"> Edit </a>
+                            </td>
+                            <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                                <form action="delete-equipment?id=${equipment.id}" method="post">
+                                    <button type="submit" class="text-xs font-semibold leading-tight text-slate-400"> Delete </button>
+                                </form>
                             </td>
                         </tr>
                     </c:forEach>
