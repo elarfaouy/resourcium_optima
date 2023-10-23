@@ -22,7 +22,8 @@ public class EquipmentTableServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Equipment> list = equipmentDao.getAllEquipments();
+        String search = req.getParameter("search") != null ? req.getParameter("search") : "";
+        List<Equipment> list = equipmentDao.getAllEquipments(search);
         req.setAttribute("list", list);
         req.getRequestDispatcher("WEB-INF/jsp/equips-table.jsp").forward(req, resp);
     }

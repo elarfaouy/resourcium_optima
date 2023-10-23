@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "EquipmentServlet", value = "/equipments")
 public class EquipmentServlet extends HttpServlet {
@@ -23,6 +24,9 @@ public class EquipmentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String search = req.getParameter("search") != null ? req.getParameter("search") : "";
+        List<Equipment> list = equipmentDao.getAllEquipments(search);
+        req.setAttribute("list", list);
         req.getRequestDispatcher("WEB-INF/jsp/equipments.jsp").forward(req, resp);
     }
 

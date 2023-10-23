@@ -38,9 +38,10 @@ public class EquipmentDao {
         return equipment;
     }
 
-    public List<Equipment> getAllEquipments() {
+    public List<Equipment> getAllEquipments(String search) {
         entityTransaction.begin();
-        TypedQuery<Equipment> query = entityManager.createQuery("SELECT e FROM Equipment e", Equipment.class);
+        TypedQuery<Equipment> query = entityManager.createQuery("SELECT e FROM Equipment e WHERE e.name like :search", Equipment.class);
+        query.setParameter("search", "%"+search+"%");
         entityTransaction.commit();
         return query.getResultList();
     }
