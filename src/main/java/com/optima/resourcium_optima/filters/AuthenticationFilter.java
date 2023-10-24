@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/equipments", "/equipments-table", "/reservations", "/tasks", "/issues", "/settings", "/logout"})
+@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/equipments", "/equipments-table", "/tasks", "/issues", "/settings", "/logout"})
 public class AuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
