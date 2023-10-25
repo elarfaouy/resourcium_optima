@@ -10,7 +10,8 @@
 <div>
     <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
         <h1 class="text-2xl font-semibold mb-4">Update Equipment</h1>
-        <form action="update-equipment" method="post">
+        <form action="equipments" method="post">
+            <input type="hidden" name="_method" value="update">
             <input type="hidden" name="id" value="${equipment.id}">
             <div class="mb-4">
                 <label for="name" class="block text-gray-600">Name:</label>

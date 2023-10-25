@@ -28,30 +28,4 @@ public class UpdateEquipmentServlet extends HttpServlet {
         req.setAttribute("equipment", equipment);
         req.getRequestDispatcher("WEB-INF/jsp/equipment/update-equipment.jsp").forward(req, resp);
     }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long equipmentId = Long.parseLong(req.getParameter("id"));
-
-        Equipment equipment = equipmentDao.getEquipmentById(equipmentId);
-
-        if (equipment == null) {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
-
-        String name = req.getParameter("name");
-        String type = req.getParameter("type");
-        EquipmentStatus status = EquipmentStatus.valueOf(req.getParameter("status"));
-        Long departmentId = Long.parseLong(req.getParameter("department"));
-
-        equipment.setName(name);
-        equipment.setType(type);
-        equipment.setEquipmentStatus(status);
-        equipment.setDepartment(new Department(departmentId, "", ""));
-
-        equipmentDao.updateEquipment(equipment);
-
-        resp.sendRedirect(req.getContextPath() + "/equipments-table");
-    }
 }

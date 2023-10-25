@@ -32,6 +32,24 @@ public class EquipmentServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("_method");
+
+        switch (action) {
+            case "add":
+                addEquipment(req, resp);
+                break;
+            case "update":
+                updateEquipment(req, resp);
+                break;
+            case "delete":
+                deleteEquipment(req, resp);
+                break;
+            default:
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+
+    public void addEquipment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String name = req.getParameter("name");
         String type = req.getParameter("type");
         EquipmentStatus status = EquipmentStatus.valueOf(req.getParameter("status"));
@@ -41,6 +59,37 @@ public class EquipmentServlet extends HttpServlet {
 
         equipmentDao.createEquipment(equipment);
 
+        resp.sendRedirect(req.getContextPath() + "/equipments-table");
+    }
+
+    public void updateEquipment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Long equipmentId = Long.parseLong(req.getParameter("id"));
+
+        Equipment equipment = equipmentDao.getEquipmentById(equipmentId);
+
+        if (equipment == null) {
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
+        String name = req.getParameter("name");
+        String type = req.getParameter("type");
+        EquipmentStatus status = EquipmentStatus.valueOf(req.getParameter("status"));
+        Long departmentId = Long.parseLong(req.getParameter("department"));
+
+        equipment.setName(name);
+        equipment.setType(type);
+        equipment.setEquipmentStatus(status);
+        equipment.setDepartment(new Department(departmentId, "", ""));
+
+        equipmentDao.updateEquipment(equipment);
+
+        resp.sendRedirect(req.getContextPath() + "/equipments-table");
+    }
+
+    public void deleteEquipment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Long equipmentId = Long.parseLong(req.getParameter("id"));
+        equipmentDao.deleteEquipment(equipmentId);
         resp.sendRedirect(req.getContextPath() + "/equipments-table");
     }
 }
