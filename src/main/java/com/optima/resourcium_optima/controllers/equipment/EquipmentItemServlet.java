@@ -1,10 +1,12 @@
 package com.optima.resourcium_optima.controllers.equipment;
 
 import com.optima.resourcium_optima.domain.entities.Equipment;
+import com.optima.resourcium_optima.domain.entities.Notification;
 import com.optima.resourcium_optima.domain.entities.Reservation;
 import com.optima.resourcium_optima.domain.entities.User;
 import com.optima.resourcium_optima.domain.enums.EquipmentStatus;
 import com.optima.resourcium_optima.repositories.EquipmentDao;
+import com.optima.resourcium_optima.repositories.NotificationDao;
 import com.optima.resourcium_optima.repositories.ReservationDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,11 +22,13 @@ import java.time.LocalDate;
 public class EquipmentItemServlet extends HttpServlet {
     private EquipmentDao equipmentDao;
     private ReservationDao reservationDao;
+    private NotificationDao notificationDao;
 
     @Override
     public void init() throws ServletException {
         equipmentDao = new EquipmentDao();
         reservationDao = new ReservationDao();
+        notificationDao = new NotificationDao();
     }
 
     @Override
@@ -73,8 +77,18 @@ public class EquipmentItemServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/reservations");
     }
 
-    public void notifyEquipment(HttpServletRequest req, HttpServletResponse resp) {
+    public void notifyEquipment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        User user = (User) req.getSession().getAttribute("user");
+        long id = Long.parseLong(req.getParameter("id"));
+        Equipment equipment = equipmentDao.getEquipmentById(id);
+        String message = "hello " + user.getUsername() + ", i would like to inform you that the : " + equipment.getName() + " is now available.";
+        Date notifyDate = reservationDao.getLastReservationOfThatEquipment(id).getReturnDate();
 
+        Notification notification = new Notification(notifyDate, message, user, equipment);
+
+        notificationDao.createNotification(notification);
+
+        resp.sendRedirect(req.getContextPath() + "/equipments");
     }
 
     public void returnEquipment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
