@@ -48,6 +48,9 @@ public class EquipmentItemServlet extends HttpServlet {
             case "notify":
                 notifyEquipment(req, resp);
                 break;
+            case "return":
+                returnEquipment(req, resp);
+                break;
             default:
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
@@ -72,5 +75,17 @@ public class EquipmentItemServlet extends HttpServlet {
 
     public void notifyEquipment(HttpServletRequest req, HttpServletResponse resp) {
 
+    }
+
+    public void returnEquipment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        long id = Long.parseLong(req.getParameter("id"));
+
+        Reservation reservation = reservationDao.getReservationById(id);
+        Date newDate = Date.valueOf(LocalDate.now());
+        reservation.setReturnDate(newDate);
+
+        reservationDao.updateReservation(reservation);
+
+        resp.sendRedirect(req.getContextPath() + "/reservations");
     }
 }
