@@ -62,7 +62,8 @@
                                 <a href="update-equipment?id=${equipment.id}" class="text-xs font-semibold leading-tight text-slate-400"> Edit </a>
                             </td>
                             <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                <form action="delete-equipment?id=${equipment.id}" method="post">
+                                <form action="equipments?id=${equipment.id}" method="post">
+                                    <input type="hidden" name="_method" value="delete">
                                     <button type="submit" class="text-xs font-semibold leading-tight text-slate-400"> Delete </button>
                                 </form>
                             </td>

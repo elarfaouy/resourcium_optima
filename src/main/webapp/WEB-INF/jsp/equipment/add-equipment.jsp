@@ -11,6 +11,7 @@
     <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
         <h1 class="text-2xl font-semibold mb-4">Add Equipment</h1>
         <form action="equipments" method="post">
+            <input type="hidden" name="_method" value="add">
             <div class="mb-4">
                 <label for="name" class="block text-gray-600">Name:</label>
                 <input type="text" id="name" name="name" class="w-full px-4 py-2 border rounded">
