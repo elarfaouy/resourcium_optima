@@ -26,7 +26,7 @@
                     <div class="w-full max-w-full px-4 pb-2 mb-6 md:w-6/12 md:flex-none xl:mb-0 xl:w-3/12">
                         <div class="relative flex flex-col min-w-0 break-words bg-transparent border-0 shadow-none rounded-2xl bg-clip-border">
                             <div class="relative">
-                                <a class="block shadow-xl rounded-xl">
+                                <a class="block shadow-xl rounded-xl" href="equipment?id=${equipment.id}">
                                     <img src="./assets/img/home-decor-3.jpg" alt="img-blur-shadow"
                                          class="max-w-full shadow-soft-2xl rounded-xl"/>
                                 </a>
@@ -34,7 +34,7 @@
                             <div class="flex-auto px-1 pt-6">
                                 <p class="relative z-10 mb-2 leading-normal text-transparent bg-gradient-to-tl from-gray-900 to-slate-800 text-sm bg-clip-text">
                                     <c:out value="${equipment.equipmentStatus}"/></p>
-                                <a href="javascript:;">
+                                <a href="equipment?id=${equipment.id}">
                                     <h5><c:out value="${equipment.name}"/></h5>
                                 </a>
                                 <p class="mb-6 leading-normal text-sm"><c:out
