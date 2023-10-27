@@ -54,7 +54,7 @@
                                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <form method="post" action="equipment">
                                         <input type="hidden" name="_method" value="report">
-                                        <input type="hidden" name="id" value="${reservation.id}">
+                                        <input type="hidden" name="id" value="${reservation.equipment.id}">
                                         <button type="submit" class="text-xs font-semibold leading-tight text-slate-400">Report</button>
                                     </form>
                                 </td>

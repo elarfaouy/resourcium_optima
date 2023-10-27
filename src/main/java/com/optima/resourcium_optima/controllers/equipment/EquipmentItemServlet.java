@@ -1,11 +1,10 @@
 package com.optima.resourcium_optima.controllers.equipment;
 
-import com.optima.resourcium_optima.domain.entities.Equipment;
-import com.optima.resourcium_optima.domain.entities.Notification;
-import com.optima.resourcium_optima.domain.entities.Reservation;
-import com.optima.resourcium_optima.domain.entities.User;
+import com.optima.resourcium_optima.domain.entities.*;
 import com.optima.resourcium_optima.domain.enums.EquipmentStatus;
+import com.optima.resourcium_optima.domain.enums.IssueStatus;
 import com.optima.resourcium_optima.repositories.EquipmentDao;
+import com.optima.resourcium_optima.repositories.IssueDao;
 import com.optima.resourcium_optima.repositories.NotificationDao;
 import com.optima.resourcium_optima.repositories.ReservationDao;
 import jakarta.servlet.ServletException;
@@ -23,12 +22,14 @@ public class EquipmentItemServlet extends HttpServlet {
     private EquipmentDao equipmentDao;
     private ReservationDao reservationDao;
     private NotificationDao notificationDao;
+    private IssueDao issueDao;
 
     @Override
     public void init() throws ServletException {
         equipmentDao = new EquipmentDao();
         reservationDao = new ReservationDao();
         notificationDao = new NotificationDao();
+        issueDao = new IssueDao();
     }
 
     @Override
@@ -54,6 +55,9 @@ public class EquipmentItemServlet extends HttpServlet {
                 break;
             case "return":
                 returnEquipment(req, resp);
+                break;
+            case "report":
+                reportEquipment(req, resp);
                 break;
             default:
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -99,6 +103,19 @@ public class EquipmentItemServlet extends HttpServlet {
         reservation.setReturnDate(newDate);
 
         reservationDao.updateReservation(reservation);
+
+        resp.sendRedirect(req.getContextPath() + "/reservations");
+    }
+
+    public void reportEquipment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        User user = (User) req.getSession().getAttribute("user");
+        long id = Long.parseLong(req.getParameter("id"));
+        Equipment equipment = equipmentDao.getEquipmentById(id);
+        Date reportDate = Date.valueOf(LocalDate.now());
+
+        Issue issue = new Issue(reportDate, IssueStatus.IN_PROGRESS, user, equipment);
+
+        issueDao.createIssue(issue);
 
         resp.sendRedirect(req.getContextPath() + "/reservations");
     }
