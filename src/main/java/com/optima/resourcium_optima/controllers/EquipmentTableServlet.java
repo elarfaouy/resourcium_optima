@@ -1,7 +1,7 @@
 package com.optima.resourcium_optima.controllers;
 
 import com.optima.resourcium_optima.domain.entities.Equipment;
-import com.optima.resourcium_optima.repositories.EquipmentDao;
+import com.optima.resourcium_optima.services.EquipmentService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,17 +13,11 @@ import java.util.List;
 
 @WebServlet(name = "EquipmentTableServlet", value = "/equipments-table")
 public class EquipmentTableServlet extends HttpServlet {
-    private EquipmentDao equipmentDao;
-
-    @Override
-    public void init() throws ServletException {
-        equipmentDao = new EquipmentDao();
-    }
+    private final EquipmentService equipmentService = new EquipmentService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String search = req.getParameter("search") != null ? req.getParameter("search") : "";
-        List<Equipment> list = equipmentDao.getAllEquipments(search);
+        List<Equipment> list = equipmentService.getAllEquipments(req.getParameter("search"));
         req.setAttribute("list", list);
         req.getRequestDispatcher("WEB-INF/jsp/equips-table.jsp").forward(req, resp);
     }
