@@ -1,7 +1,7 @@
 package com.optima.resourcium_optima.controllers;
 
-import com.optima.resourcium_optima.repositories.UserDao;
 import com.optima.resourcium_optima.domain.entities.User;
+import com.optima.resourcium_optima.services.UserService;
 import com.optima.resourcium_optima.util.AuthenticationUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -13,12 +13,7 @@ import java.io.IOException;
 
 @WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
-    private UserDao userDao;
-
-    @Override
-    public void init() {
-        userDao = new UserDao();
-    }
+    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,7 +25,7 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        User user = userDao.getUserByUsername(username);
+        User user = userService.getUserByUsername(username);
 
         if (user != null && AuthenticationUtil.verifyPassword(password, user.getPassword())) {
             req.getSession().setAttribute("user", user);

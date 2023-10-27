@@ -2,8 +2,8 @@ package com.optima.resourcium_optima.controllers;
 
 import com.optima.resourcium_optima.domain.entities.Department;
 import com.optima.resourcium_optima.domain.entities.Role;
-import com.optima.resourcium_optima.repositories.UserDao;
 import com.optima.resourcium_optima.domain.entities.User;
+import com.optima.resourcium_optima.services.UserService;
 import com.optima.resourcium_optima.util.AuthenticationUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -15,12 +15,7 @@ import java.io.IOException;
 
 @WebServlet(name = "RegisterServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
-    private UserDao userDao;
-
-    @Override
-    public void init() {
-        userDao = new UserDao();
-    }
+    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,7 +34,7 @@ public class RegisterServlet extends HttpServlet {
 
         User user = new User(username, firstName, lastName, email, password, new Role(3L, "employee"), new Department(1L, "IT", "Info"));
 
-        userDao.createUser(user);
+        userService.createUser(user);
 
         resp.sendRedirect(req.getContextPath() + "/login");
     }

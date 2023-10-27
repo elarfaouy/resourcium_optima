@@ -2,6 +2,7 @@ package com.optima.resourcium_optima.controllers;
 
 import com.optima.resourcium_optima.domain.entities.User;
 import com.optima.resourcium_optima.repositories.UserDao;
+import com.optima.resourcium_optima.services.UserService;
 import com.optima.resourcium_optima.util.AuthenticationUtil;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -14,12 +15,7 @@ import java.io.IOException;
 
 @WebServlet(name = "SettingsServlet", value = "/settings")
 public class SettingsServlet extends HttpServlet {
-    private UserDao userDao;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        this.userDao = new UserDao();
-    }
+    private final UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +24,7 @@ public class SettingsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("_method") /*!= null ? req.getParameter("_method") : ""*/;
+        String action = req.getParameter("_method");
 
         switch (action) {
             case "user":
@@ -48,12 +44,12 @@ public class SettingsServlet extends HttpServlet {
         String surname = req.getParameter("surname");
         String email = req.getParameter("email");
 
-        User user = userDao.getUserById(id);
+        User user = userService.getUserById(id);
         user.setName(name);
         user.setSurname(surname);
         user.setEmail(email);
 
-        userDao.updateUser(user);
+        userService.updateUser(user);
 
         req.getSession().setAttribute("user", user);
 
@@ -65,12 +61,9 @@ public class SettingsServlet extends HttpServlet {
         String oldPassword = req.getParameter("currentPassword");
         String newPassword = req.getParameter("newPassword");
 
-        User user = userDao.getUserById(id);
+        User user = userService.getUserById(id);
 
-        if (AuthenticationUtil.verifyPassword(oldPassword, user.getPassword())) {
-            user.setPassword(AuthenticationUtil.hashPassword(newPassword));
-            userDao.updateUser(user);
-        }
+        userService.updateUserPassword(user, oldPassword, newPassword);
 
         resp.sendRedirect(req.getContextPath() + "/settings");
     }
