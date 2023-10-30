@@ -3,6 +3,8 @@ package com.optima.resourcium_optima.repositories;
 import com.optima.resourcium_optima.domain.entities.Reservation;
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class ReservationDao {
@@ -35,6 +37,14 @@ public class ReservationDao {
         Reservation reservation = entityManager.find(Reservation.class, reservationId);
         entityTransaction.commit();
         return reservation;
+    }
+
+    public Reservation getLastReservationOfThatEquipment(long equipmentId) {
+        entityTransaction.begin();
+        TypedQuery<Reservation> query = entityManager.createQuery("SELECT e FROM Reservation e WHERE e.equipment.id = :id AND e.returnDate > current date", Reservation.class);
+        query.setParameter("id", equipmentId);
+        entityTransaction.commit();
+        return query.getSingleResult();
     }
 
     public List<Reservation> getAllReservations() {

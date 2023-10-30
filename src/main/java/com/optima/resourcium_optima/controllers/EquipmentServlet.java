@@ -3,7 +3,7 @@ package com.optima.resourcium_optima.controllers;
 import com.optima.resourcium_optima.domain.entities.Department;
 import com.optima.resourcium_optima.domain.entities.Equipment;
 import com.optima.resourcium_optima.domain.enums.EquipmentStatus;
-import com.optima.resourcium_optima.repositories.EquipmentDao;
+import com.optima.resourcium_optima.services.EquipmentService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,17 +15,11 @@ import java.util.List;
 
 @WebServlet(name = "EquipmentServlet", value = "/equipments")
 public class EquipmentServlet extends HttpServlet {
-    private EquipmentDao equipmentDao;
-
-    @Override
-    public void init() throws ServletException {
-        equipmentDao = new EquipmentDao();
-    }
+    private final EquipmentService equipmentService = new EquipmentService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String search = req.getParameter("search") != null ? req.getParameter("search") : "";
-        List<Equipment> list = equipmentDao.getAllEquipments(search);
+        List<Equipment> list = equipmentService.getAllEquipments(req.getParameter("search"));
         req.setAttribute("list", list);
         req.getRequestDispatcher("WEB-INF/jsp/equipments.jsp").forward(req, resp);
     }
@@ -57,7 +51,7 @@ public class EquipmentServlet extends HttpServlet {
 
         Equipment equipment = new Equipment(name, type, status, new Department(departmentId, "", ""));
 
-        equipmentDao.createEquipment(equipment);
+        equipmentService.createEquipment(equipment);
 
         resp.sendRedirect(req.getContextPath() + "/equipments-table");
     }
@@ -65,7 +59,7 @@ public class EquipmentServlet extends HttpServlet {
     public void updateEquipment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long equipmentId = Long.parseLong(req.getParameter("id"));
 
-        Equipment equipment = equipmentDao.getEquipmentById(equipmentId);
+        Equipment equipment = equipmentService.getEquipmentById(equipmentId);
 
         if (equipment == null) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -82,14 +76,14 @@ public class EquipmentServlet extends HttpServlet {
         equipment.setEquipmentStatus(status);
         equipment.setDepartment(new Department(departmentId, "", ""));
 
-        equipmentDao.updateEquipment(equipment);
+        equipmentService.updateEquipment(equipment);
 
         resp.sendRedirect(req.getContextPath() + "/equipments-table");
     }
 
     public void deleteEquipment(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Long equipmentId = Long.parseLong(req.getParameter("id"));
-        equipmentDao.deleteEquipment(equipmentId);
+        equipmentService.deleteEquipment(equipmentId);
         resp.sendRedirect(req.getContextPath() + "/equipments-table");
     }
 }

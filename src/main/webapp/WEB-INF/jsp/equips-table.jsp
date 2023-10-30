@@ -13,7 +13,7 @@
         <a href="add-equipment" class="inline-block px-6 py-3 mt-6 mb-7.5 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-gray-900 to-slate-800 hover:border-slate-700 hover:bg-slate-700 hover:text-white">Add Equipment</a>
         <div class="md:ml-auto md:pr-4 w-90 mb-6">
             <form action="equipments-table" method="get" class="relative flex flex-wrap items-stretch w-full transition-all rounded-lg ease-soft">
-                <span class="text-sm ease-soft leading-5.6 absolute z-50 -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
+                <span class="text-sm ease-soft leading-5.6 absolute -ml-px flex h-full items-center whitespace-nowrap rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-transparent bg-transparent py-2 px-2.5 text-center font-normal text-slate-500 transition-all">
                   <i class="fas fa-search"></i>
                 </span>
                 <input type="text" name="search" value="${param.search}"
