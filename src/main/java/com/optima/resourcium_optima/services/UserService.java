@@ -16,10 +16,9 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-        User updated = userDao.updateUser(user);
-        if (updated != null) {
-            return updated;
-        } else {
+        try {
+            return userDao.updateUser(user);
+        } catch (RuntimeException e){
             throw new RuntimeException("error when update user !.");
         }
     }
